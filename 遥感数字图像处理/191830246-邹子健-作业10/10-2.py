@@ -8,7 +8,6 @@ import numpy as np
 
 def myPCACompute(data, mean):
     N, dim = data.shape
-    print(N, dim)
     # 计算协方差矩阵
     cov = np.zeros((dim, dim), dtype=np.float64)
     minus_data = data.copy()
@@ -26,7 +25,6 @@ def myPCACompute(data, mean):
     sorted_val = val.copy()
     for i in range(val.shape[0]):
         sorted_vects[:, i] = vects[:, b[i]]
-    print('sorted:', sorted_val, '\n', sorted_vects)
     # 返回 mean , 和排序后的特征向量
     return mean, np.float32(sorted_vects.T)
 
