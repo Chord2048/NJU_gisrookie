@@ -1,7 +1,7 @@
 # 利用PCA方法进行图像融合
-import cv2
+from cv2 import cv2
 import numpy as np
-
+cv2.__file__
 # PCACompute(data, mean[, eigenvectors[, maxComponents]]) -> mean, eigenvectors
 # 复刻了 cv2.PCACompute 函数
 
@@ -22,7 +22,6 @@ def myPCACompute(data, mean):
     # 返回从大到小的 index
     b = np.argsort(-val, axis=0, kind='quicksort', order=None)
     sorted_vects = vects.copy()
-    sorted_val = val.copy()
     for i in range(val.shape[0]):
         sorted_vects[:, i] = vects[:, b[i]]
     # 返回 mean , 和排序后的特征向量
@@ -35,9 +34,8 @@ def pca(mul, pan):
     mul = np.float64(mul)
     pan = np.float64(pan)
     dst = np.zeros(mul.shape, dtype=np.uint8)
-
     # 主成分变换，得到特征值和特征向量
-    row, col, dim = mul.shape
+    row, col, dim = list(mul.shape)
     temp = np.zeros((row * col, dim), dtype=np.float32)
     for i in range(dim):
         temp[:, i] = (mul[:, :, i]).ravel()  # 将矩阵向量化

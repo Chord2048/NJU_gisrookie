@@ -1,5 +1,5 @@
 # 利用Brovey方法进行图像融合
-import cv2
+from cv2 import cv2
 import numpy as np
 
 
@@ -11,7 +11,7 @@ def Brovey(mul, pan):
     dst = np.zeros(mul.shape, dtype=np.float64)
 
     # 数据融合
-    row, col, dim = mul.shape
+    dim = list(mul.shape)[2]
     if dim >= 2:
         mul_sum = np.sum(mul, axis=2)
         mul_sum[mul_sum == 0] = 0.000001
