@@ -20,7 +20,6 @@ def connect(img, y, x, low):
 
 def LoG(src):
     # step 1. make border
-    src = cv2.copyMakeBorder(src, 2, 2, 2, 2, cv2.BORDER_REPLICATE)
     src = np.float64(src)
     # step 2. define LoG template
     template = np.array([[0, 0, -1, 0, 0],
@@ -43,14 +42,12 @@ def LoG(src):
             tp = src[ni - radius:ni + radius + 1, nj - radius:nj + radius + 1]
             # print(tp.shape)
             dst[i, j] = np.sum(tp * template)
-
     # step 4. post processing
     dst = np.abs(dst)
     dmin = np.min(dst)
     dmax = np.max(dst)
     dst = 255.0 / (dmax-dmin) * (dst-dmin)
     dst = np.uint8(dst + 0.5)
-    dst = dst[0+radius: rows-radius, 0+radius: cols-radius]
     row1, col1 = dst.shape
     res = dst.copy()
     count = 0
@@ -75,7 +72,6 @@ def main():
     cv2.imwrite('LOG_output.tif', dst)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    pass
 
 
 if __name__ == "__main__":
